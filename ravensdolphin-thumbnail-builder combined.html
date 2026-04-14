@@ -23,11 +23,11 @@
     --pill-active-border:#00D4FF;
     --pill-active-text:#00D4FF;
   }
-  html,body{background:#0a0a14;color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+  html,body{background:#0a0a14;color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;height:100%;overflow:hidden}
   h1{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px 12px;border-bottom:1px solid var(--panel-border)}
-  .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+  .app{display:grid;grid-template-columns:280px 1fr;height:100vh;height:100dvh}
 
-  .sidebar{background:var(--panel-bg);border-right:1px solid var(--panel-border);display:flex;flex-direction:column;overflow-y:auto}
+  .sidebar{background:var(--panel-bg);border-right:1px solid var(--panel-border);display:flex;flex-direction:column;overflow-y:auto;min-height:0}
   .section{padding:14px 16px;border-bottom:1px solid var(--panel-border)}
   .section-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
   .field{margin-bottom:10px}
@@ -58,11 +58,11 @@
   .hint{font-size:10px;color:var(--text-muted);margin-top:3px}
   .mini-hint{font-size:10px;color:var(--text-muted);margin-top:8px;line-height:1.5}
 
-  .main{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:30px;gap:20px;background:#0a0a14}
+  .main{display:grid;grid-template-rows:auto minmax(0,1fr) auto;align-items:start;justify-items:center;padding:18px 24px;gap:12px;background:#0a0a14;min-height:0;overflow:hidden}
   .preview-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);align-self:flex-start}
 
   /* THE THUMBNAIL — exact 1280x720 scaled to fit */
-  .thumb-scaler{width:100%;max-width:960px;aspect-ratio:16/9;position:relative}
+  .thumb-scaler{width:min(100%,960px);max-height:100%;aspect-ratio:16/9;position:relative;align-self:center}
   #thumb{width:100%;height:100%;position:relative;overflow:hidden;background:#0a0a1a}
   #bg-img{position:absolute;inset:0;background-size:cover;background-position:center;width:100%;height:100%}
   #bg-overlay{position:absolute;inset:0}
@@ -86,10 +86,13 @@
   .ep-badge-bot{font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:2% 8% 2.5%;width:100%;text-align:center}
 
   /* instructions box */
-  .instructions{background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:8px;padding:16px 20px;max-width:960px;width:100%;font-size:12px;color:var(--text-muted);line-height:1.7}
+  .instructions{background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:8px;padding:12px 16px;max-width:960px;width:100%;font-size:12px;color:var(--text-muted);line-height:1.7;overflow:auto;max-height:24vh}
   .instructions strong{color:var(--text);font-weight:600}
   .instructions ol{padding-left:18px}
   .instructions li{margin-bottom:4px}
+  .instructions summary{cursor:pointer;list-style:none;color:var(--text);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  .instructions summary::-webkit-details-marker{display:none}
+  .instructions[open] summary{margin-bottom:8px}
 
   /* CLEAN MODE */
   body.clean-mode #ep-badge{display:none!important}
@@ -97,7 +100,7 @@
 
   /* VERT MODE — 9:16 */
   .orientation-toggle{display:flex;gap:5px}
-  body.vert-mode .thumb-scaler{max-width:380px;aspect-ratio:9/16}
+  body.vert-mode .thumb-scaler{width:min(100%,320px);max-width:320px;aspect-ratio:9/16}
   body.vert-mode #char-img{height:70%;bottom:10%}
   body.vert-mode .text-block{max-width:90%!important}
 
@@ -333,7 +336,8 @@
       </div>
     </div>
 
-    <div class="instructions">
+    <details class="instructions">
+      <summary>help & tips</summary>
       <strong>save/export:</strong>
       <ol>
         <li>Click <strong>save PNG</strong> to download the thumbnail at exactly <strong><span id="instr-dims">1280×720</span></strong></li>
@@ -354,7 +358,7 @@
       <p class="mini-hint">text, colors, sizes, layout mode, and dragged positions are remembered on this browser. Uploaded images stay temporary so local storage does not get overloaded.</p>
       <br>
       <strong>tips:</strong> character PNGs with transparent backgrounds work best (export your green screen footage as PNG sequence in OBS or CapCut). Game logos are usually available as transparent PNGs from the official press kits.
-    </div>
+    </details>
   </div>
 </div>
 
